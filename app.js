@@ -1,4 +1,5 @@
 const express = require("express");
+const isWord = require("is-word");
 const axios = require("axios");
 const app = express();
 const PORT = 3000;
@@ -36,6 +37,22 @@ const validateWord = async (req, res, next) => {
 // API endpoint to validate word and return last letter
 app.get("/validate", validateWordLength, validateWord, (req, res) => {
   res.json({ lastLetter: req.lastLetter });
+});
+
+app.post("/validate-word", (req, res) => {
+  const { word } = req.body;
+
+  if (word.length >= 5 && isWord(word)) {
+    const lastLetter = word[word.length - 1];
+    res.json({ result: lastLetter });
+  } else {
+    res
+      .status(400)
+      .json({
+        error:
+          "Invalid word. Please provide a real English word with at least 5 letters.",
+      });
+  }
 });
 
 app.listen(PORT, () => {
