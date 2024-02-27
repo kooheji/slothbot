@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
+const dictionary = require("dictionary-en");
 
-app.get("/validate-word", async (req, res) => {
+app.get("/validate-word", (req, res) => {
   const { word } = req.query;
 
   if (word && word.length >= 5) {
-    const dictionary = await import("dictionary-en");
     dictionary(word, (valid) => {
       if (valid) {
         const lastLetter = word[word.length - 1];
