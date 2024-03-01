@@ -20,6 +20,11 @@ app.get("/validate-word/:word", (req, res) => {
   res.json({ result: `${lastLetter}` });
 });
 
+app.get("/ping", (req, res) => {
+  const startTime = Date.now();
+  res.json({ message: "Pong!", latency: Date.now() - startTime + "ms" });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
