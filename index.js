@@ -2,6 +2,7 @@ const express = require("express");
 const checkWord = require("check-dictionary-word");
 const app = express();
 const PORT = 3000;
+
 // World Validator
 app.get("/validate-word/:word", (req, res) => {
   const { word } = req.params;
@@ -19,12 +20,14 @@ app.get("/validate-word/:word", (req, res) => {
   const lastLetter = word[word.length - 1];
   res.json({ result: `${lastLetter}` });
 });
+
 //Auto Ping
 app.get("/ping", (req, res) => {
   const startTime = Date.now();
   res.json({ message: "Pong!", latency: Date.now() - startTime + "ms" });
 });
 
+//Running
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
